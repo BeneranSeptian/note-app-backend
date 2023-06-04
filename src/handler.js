@@ -30,7 +30,7 @@ function addNoteHandler(request, h) {
             }
         })
 
-        response.code = 201
+        response.code(201)
         return response
     }
 
@@ -110,17 +110,17 @@ function deleteNoteHandler(request, h) {
     const index = notes.findIndex(note => note.id === id)
 
     if(index === -1) {
-        return {
-            code: 400,
+        return h.response({
             status: 'fail',
-            message: 'note tidak ditemukan'
-        }
+            message: 'note tidak ditemukan',
+            code: 404
+        })
     }
 
     notes.splice(index, 1)
     return {
         status: 'success',
-        message: 'note berhasil diperbaharui',
+        message: 'note berhasil dihapus',
     }
 }
 
